@@ -11,29 +11,13 @@ namespace LibUISharp.Internal
 
         private static class FunctionLoader
         {
-            private static readonly string[] WinNTEmbeddedLibNames = new[]
-            {
-                 @"LibUISharp.Resources.libui.dll"
-            };
-
-            private static readonly string[] LinuxEmbeddedLibNames = new[] 
-            {
-                @"LibUISharp.Resources.libui.so",
-                @"LibUISharp.Resources.libui.so.0"
-            };
-            private static readonly string[] MacOSEmbeddedLibNames = new[]
-            {
-                @"LibUISharp.Resources.libui.dylib",
-                @"LibUISharp.Resources.libui.A.dylib"
-            };
-
             private static NativeLibrary LibuiNativeLibrary
             {
                 get
                 {
-                    if (PlatformHelper.IsWinNT) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, WinNTEmbeddedLibNames);
-                    else if (PlatformHelper.IsLinux) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, LinuxEmbeddedLibNames);
-                    else if (PlatformHelper.IsMacOS) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, MacOSEmbeddedLibNames);
+                    if (PlatformHelper.IsWinNT) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, "LibUISharp.Resources.Libui.WinNT");
+                    else if (PlatformHelper.IsLinux) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, "LibUISharp.Resources.Libui.Linux");
+                    else if (PlatformHelper.IsMacOS) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, "LibUISharp.Resources.Libui.MacOS");
                     else throw new PlatformNotSupportedException();
                 }
             }
