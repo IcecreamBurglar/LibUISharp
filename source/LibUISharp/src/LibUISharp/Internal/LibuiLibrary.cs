@@ -11,28 +11,29 @@ namespace LibUISharp.Internal
 
         private static class FunctionLoader
         {
-            private static readonly string[] WinNTLibNames = new[] 
+            private static readonly string[] WinNTEmbeddedLibNames = new[]
             {
-                @"runtimes\win7-x64\native\libui.dll"
+                 @"LibUISharp.Resources.libui.dll"
             };
-            private static readonly string[] LinuxLibNames = new[] 
+
+            private static readonly string[] LinuxEmbeddedLibNames = new[] 
             {
-                @"runtimes\linux-x64\native\libui.so",
-                @"runtimes\linux-x64\native\libui.so.0"
+                @"LibUISharp.Resources.libui.so",
+                @"LibUISharp.Resources.libui.so.0"
             };
-            private static readonly string[] MacOSLibNames = new[]
+            private static readonly string[] MacOSEmbeddedLibNames = new[]
             {
-                @"runtimes\osx-x64\native\libui.dylib",
-                @"runtimes\osx-x64\native\libui.A.dylib"
+                @"LibUISharp.Resources.libui.dylib",
+                @"LibUISharp.Resources.libui.A.dylib"
             };
 
             private static NativeLibrary LibuiNativeLibrary
             {
                 get
                 {
-                    if (PlatformHelper.IsWinNT) return new NativeLibrary(WinNTLibNames);
-                    else if (PlatformHelper.IsLinux) return new NativeLibrary(LinuxLibNames);
-                    else if (PlatformHelper.IsMacOS) return new NativeLibrary(MacOSLibNames);
+                    if (PlatformHelper.IsWinNT) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, WinNTEmbeddedLibNames);
+                    else if (PlatformHelper.IsLinux) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, LinuxEmbeddedLibNames);
+                    else if (PlatformHelper.IsMacOS) return new NativeLibrary(LibraryLoader.GetPlatformDefaultLoader(), PathResolver.Embedded, MacOSEmbeddedLibNames);
                     else throw new PlatformNotSupportedException();
                 }
             }
